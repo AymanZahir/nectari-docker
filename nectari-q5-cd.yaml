@@ -1,0 +1,24 @@
+name: CD Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/aymanzahir/nectari.repository.io/datasources/mssql/server-2019:latest .
+          docker push ghcr.io/aymanzahir/nectari.repository.io/datasources/mssql/server-2019:latest

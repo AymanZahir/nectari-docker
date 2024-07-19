@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dockerexplore:
+    image: dockerexplore
+    build:
+      context: .
+      dockerfile: ./Dockerfile
